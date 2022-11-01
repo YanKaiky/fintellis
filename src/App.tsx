@@ -1,6 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes';
-import { Menu } from './shared/components';
 import { AppThemeProvider, DrawerProvider } from './shared/contexts';
 
 function App() {
@@ -8,9 +7,7 @@ function App() {
     <AppThemeProvider>
       <DrawerProvider>
         <BrowserRouter>
-          <Menu>
-            <AppRoutes />
-          </Menu>
+          <AppRoutes />
         </BrowserRouter>
       </DrawerProvider>
     </AppThemeProvider>
