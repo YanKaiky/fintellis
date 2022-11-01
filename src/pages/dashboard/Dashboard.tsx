@@ -4,7 +4,13 @@ import { BaseLayout } from '../../shared/layouts';
 
 export const Dashboard: FC = () => {
   return (
-    <BaseLayout icon='dashboard_outlined' title='Dashboard'>
+    <BaseLayout icon='dashboard_outlined' title='Dashboard' toolbar={
+      <Box width='100%' display='flex'>
+        <Typography marginLeft={2}>Bills To Receive</ Typography>
+
+        <Typography>{'< 2022 >'}</ Typography>
+      </Box >
+    }>
       <Box width='100%' display='flex'>
         <Grid container margin={3}>
           <Grid item container spacing={4}>

@@ -6,10 +6,11 @@ import { Menu } from '../components';
 interface IBaseLayoutProps {
   icon: string,
   title: string,
+  toolbar?: ReactNode,
   children: ReactNode,
 }
 
-export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, children }) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, toolbar, children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -40,17 +41,24 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, children }) => {
         </Typography>
       </Box>
 
-      <Box
-        flex={1}
-        overflow='auto'
-        marginTop={2}
-        marginRight={2}
-        marginBottom={2}
-        marginLeft={isDrawerOpen ? theme.spacing(42) : 2}
-        borderRadius={8}
-        bgcolor={themeName === 'light' ? '#d7d7d7' : '#303134'}
-      >
-        {children}
+      <Box display='flex' flexDirection='column' columnGap={0}>
+        {toolbar && (
+          <Box marginLeft={isDrawerOpen ? theme.spacing(40) : 0}>
+            {toolbar}
+          </Box>
+        )}
+        <Box
+          flex={1}
+          overflow='auto'
+          marginTop={2}
+          marginRight={2}
+          marginBottom={2}
+          marginLeft={isDrawerOpen ? theme.spacing(42) : 2}
+          borderRadius={8}
+          bgcolor={themeName === 'light' ? '#d7d7d7' : '#303134'}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
