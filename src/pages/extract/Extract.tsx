@@ -2,13 +2,13 @@ import { Box, Grid } from '@mui/material';
 import { FC } from 'react';
 import { BaseLayout } from '../../shared/layouts';
 
-export const BillsToReceive: FC = () => {
+export const Extract: FC = () => {
   return (
-    <BaseLayout icon='card_travel' title='Bills To Receive'>
+    <BaseLayout icon='account_balance' title='Extract'>
       <Box width='100%' display='flex'>
         <Grid container margin={1}>
           <Grid item container spacing={2}>
-            Bills To Receive
+            Extract
           </Grid>
         </Grid>
       </Box>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { BillsToPay, BillsToReceive, Dashboard } from '../pages';
+import { BillsToPay, BillsToReceive, Dashboard, Extract, Transfers } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 const AppRoutes = () => {
@@ -19,8 +19,19 @@ const AppRoutes = () => {
     },
     {
       label: 'Bills To Receive',
-      icon: 'receives',
+      icon: 'card_travel',
       path: '/bills-to-receive'
+    },
+    {
+      label: 'Extract',
+      icon: 'account_balance',
+      path: '/extract'
+    }
+    ,
+    {
+      label: 'Tranfers',
+      icon: 'local_atm',
+      path: '/transfers'
     }
   ];
 
@@ -33,6 +44,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Dashboard />} />
       <Route path="/bills-to-pay" element={<BillsToPay />} />
       <Route path="/bills-to-receive" element={<BillsToReceive />} />
+      <Route path="/extract" element={<Extract />} />
+      <Route path="/transfers" element={<Transfers />} />
       <Route path="*" element={<Navigate to='/' />} />
     </Routes>
   );

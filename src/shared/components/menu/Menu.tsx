@@ -50,7 +50,7 @@ export const Menu: FC = () => {
 
           <Box>
             <List component="nav">
-              <ListItemButton onClick={toggleTheme}>
+              <ListItemButton onClick={toggleTheme} sx={{ margin: 1, borderRadius: '10px' }}>
                 <ListItemIcon>
                   {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
                 </ListItemIcon>
