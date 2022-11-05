@@ -80,15 +80,15 @@ export const Dashboard: FC = () => {
         <Grid container margin={3}>
           <Grid item container spacing={4}>
             {
-              dashboard && dashboard.months.map((v: IProps) => {
+              dashboard && dashboard.months.map((d: IProps) => {
                 return (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={1}>
                     <Card>
                       <CardContent>
-                        <Typography variant='caption' align='left'>{v.month}</Typography>
+                        <Typography variant='caption' align='left'>{d.month}</Typography>
 
                         <Box textAlign='left'>
-                          <Typography variant='h5'>$ {v.value.toFixed(2)}</Typography>
+                          <Typography variant='h5'>$ {d.value.toFixed(2)}</Typography>
                         </Box>
                       </CardContent>
                     </Card>

@@ -29,7 +29,7 @@ export const Details: FC<IDetailsProps> = ({
 
       <Typography>{center}</Typography>
 
-      {right && <Box>{right}</Box>}
+      <Box>{right ?? <></>}</Box>
     </Box >
   )
 }
