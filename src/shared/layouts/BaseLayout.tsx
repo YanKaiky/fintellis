@@ -6,11 +6,11 @@ import { Menu } from '../components';
 interface IBaseLayoutProps {
   icon: string,
   title: string,
-  toolbar?: ReactNode,
+  details?: ReactNode,
   children: ReactNode,
 }
 
-export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, toolbar, children }) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -22,12 +22,12 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, toolbar, childre
   return (
     <Box height='100%' display='flex' flexDirection='column' gap={1}>
       <Box padding={1} height={theme.spacing(smDown ? 6 : mdDown ? 8 : 12)} display='flex' alignItems='center' gap={1}>
-        <Box height='100vh' marginLeft={isDrawerOpen ? theme.spacing(40) : 0}>
+        <Box marginLeft={isDrawerOpen ? theme.spacing(40) : 0}>
           <Menu />
         </Box>
 
         {!isDrawerOpen && (
-          <Box>
+          <Box alignSelf='normal'>
             <IconButton onClick={toggleDrawerOpen}>
               <Icon>menu</Icon>
             </IconButton>
@@ -42,9 +42,9 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, toolbar, childre
       </Box>
 
       <Box display='flex' flexDirection='column' columnGap={0}>
-        {toolbar && (
-          <Box marginLeft={isDrawerOpen ? theme.spacing(40) : 0}>
-            {toolbar}
+        {details && (
+          <Box marginLeft={isDrawerOpen && !smDown ? theme.spacing(45) : 5} marginRight={theme.spacing(5)} marginBottom='-1rem'>
+            {details}
           </Box>
         )}
         <Box
@@ -53,13 +53,13 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, toolbar, childre
           marginTop={2}
           marginRight={2}
           marginBottom={2}
-          marginLeft={isDrawerOpen ? theme.spacing(42) : 2}
+          marginLeft={isDrawerOpen && !smDown ? theme.spacing(42) : 2}
           borderRadius={8}
           bgcolor={themeName === 'light' ? '#d7d7d7' : '#303134'}
         >
           {children}
         </Box>
       </Box>
-    </Box>
+    </Box >
   );
 };

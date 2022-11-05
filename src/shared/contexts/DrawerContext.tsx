@@ -24,7 +24,7 @@ export const useDrawerContext = () => {
 };
 
 export const DrawerProvider: FC<IDrawerProviderProps> = ({ children }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerOptions, setDrawerOptions] = useState<IDrawerOptions[]>([]);
 
   const toggleDrawerOpen = useCallback(() => {
