@@ -14,7 +14,7 @@ const AppRoutes = () => {
     },
     {
       label: 'Bills To Pay',
-      icon: 'payments',
+      icon: 'credit_card',
       path: '/bills-to-pay'
     },
     {
@@ -29,7 +29,7 @@ const AppRoutes = () => {
     }
     ,
     {
-      label: 'Tranfers',
+      label: 'Transfers',
       icon: 'local_atm',
       path: '/transfers'
     }

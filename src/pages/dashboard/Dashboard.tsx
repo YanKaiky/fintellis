@@ -11,12 +11,19 @@ interface IProps {
 }
 
 export const Dashboard: FC = () => {
-  const [dashboard, setDashboard] = useState<IProps | any>()
+  const [year, setYear] = useState<number>(new Date().getUTCFullYear());
+  const [dashboard, setDashboard] = useState<boolean>(true)
+
+  const [payments, setPayments] = useState<IProps | any>([])
+  const [totalPayment, setTotalPayment] = useState<number>(0)
+
+  const [receives, setReceives] = useState<IProps | any>([])
+  const [totalReceives, setTotalReceives] = useState<number>(0)
 
   useEffect(() => {
     const response = {
       year: 2022,
-      months: [
+      payments: [
         {
           month: "January",
           value: 2500.00
@@ -66,35 +73,110 @@ export const Dashboard: FC = () => {
           value: 0.00
         },
       ],
-      total: 25000
+      receives: [
+        {
+          month: "January",
+          value: 500.00
+        },
+        {
+          month: "February",
+          value: 500.00
+        },
+        {
+          month: "March",
+          value: 500.00
+        },
+        {
+          month: "April",
+          value: 500.00
+        },
+        {
+          month: "May",
+          value: 500.00
+        },
+        {
+          month: "June",
+          value: 500.00
+        },
+        {
+          month: "July",
+          value: 500.00
+        },
+        {
+          month: "August",
+          value: 500.00
+        },
+        {
+          month: "September",
+          value: 500.00
+        },
+        {
+          month: "October",
+          value: 500.00
+        },
+        {
+          month: "November",
+          value: 0.00
+        },
+        {
+          month: "December",
+          value: 0.00
+        },
+      ],
+      total_payments: 25000,
+      total_received: 5000
     }
 
-    setDashboard(response)
+    setYear(response.year);
+    setPayments(response.payments);
+    setReceives(response.receives);
+    setTotalPayment(response.total_payments);
+    setTotalReceives(response.total_received);
   }, [])
 
   return (
-    <BaseLayout icon='dashboard_outlined' title='Dashboard' details={
-      <Details left='Bills To Receive' center={dashboard && dashboard.year} />
+    <BaseLayout icon='dashboard_outlined' title='Dashboard' subtitle={dashboard ? 'Payments' : 'Receives'} details={
+      <Details
+        right={dashboard ? 'Bills To Receive' : 'Bills To Pay'}
+        icon='sync_alt_outlined'
+        onRightClick={() => setDashboard(!dashboard)}
+        center={year}
+      />
     }>
       <Box width='100%' display='flex'>
         <Grid container margin={3}>
           <Grid item container spacing={4}>
             {
-              dashboard && dashboard.months.map((d: IProps) => {
+              dashboard ? payments.map((p: IProps) => {
                 return (
-                  <Grid item xs={12} sm={6} md={4} lg={3} xl={1}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} xl={1} key={p.month}>
                     <Card>
                       <CardContent>
-                        <Typography variant='caption' align='left'>{d.month}</Typography>
+                        <Typography variant='caption' align='left'>{p.month}</Typography>
 
                         <Box textAlign='left'>
-                          <Typography variant='h5'>$ {d.value.toFixed(2)}</Typography>
+                          <Typography variant='h5'>$ {p.value.toFixed(2)}</Typography>
                         </Box>
                       </CardContent>
                     </Card>
                   </Grid>
                 )
-              })
+              }) :
+                receives.map((r: IProps) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={1} key={r.month}>
+                      <Card>
+                        <CardContent>
+                          <Typography variant='caption' align='left'>{r.month}</Typography>
+
+                          <Box textAlign='left'>
+                            <Typography variant='h5'>$ {r.value.toFixed(2)}</Typography>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  )
+                })
             }
           </Grid>
 
@@ -106,7 +188,7 @@ export const Dashboard: FC = () => {
                     <Typography variant='caption' align='left'>Total:</Typography>
 
                     <Box textAlign='left'>
-                      <Typography variant='h5'>$ {dashboard && dashboard.total.toFixed(2)}</Typography>
+                      <Typography variant='h5'>$ {dashboard ? totalPayment.toFixed(2) : totalReceives.toFixed(2)}</Typography>
                     </Box>
                   </CardContent>
                 </Card>

@@ -1,19 +1,22 @@
-import { ReactNode, FC } from 'react';
-import { Box, Card, CardContent, Grid, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { ReactNode, FC, useState } from 'react';
+import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useAppThemeContext, useDrawerContext } from '../contexts';
 import { Menu } from '../components';
 
 interface IBaseLayoutProps {
   icon: string,
   title: string,
+  subtitle?: string,
   details?: ReactNode,
   children: ReactNode,
 }
 
-export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, children }) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, details, children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [open, setOpen] = useState(true);
 
   const { themeName } = useAppThemeContext();
 
@@ -50,18 +53,37 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
           <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h5' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
             <Icon fontSize='inherit' sx={{ marginRight: '1rem' }}>{icon}</Icon>{' '}
 
-            {title}
+            {
+              subtitle ?
+                <Box display='flex' flexDirection='column'>
+                  {title}
+
+                  <Typography variant='body2'>{subtitle}</Typography>
+                </Box>
+                : <>{title}</>
+            }
           </Typography>
 
-          {!mdDown && <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
+          {!mdDown && <Typography display='flex' alignItems='center' variant='h6' overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
             Logo
           </Typography>}
 
-          {isDrawerOpen && !mdDown && <Box bgcolor='#303134' borderRadius='12px' padding={smDown ? 1 : 1.5} width={smDown ? '18%' : mdDown ? '14%' : '10%'}>
-            <Typography variant='caption' align='left'>Balance</Typography>
+          {
+            !mdDown &&
+            <Box bgcolor='#303134' borderRadius='12px' padding='0 24px 0 12px' width={smDown ? '18%' : mdDown ? '14%' : '10%'}>
+              <Box display='flex' justifyContent='space-between' alignItems='center' width='100%'>
+                <Typography variant='caption' align='left'>Balance</Typography>
 
-            <Typography variant={smDown ? 'body1' : mdDown ? 'h6' : 'h5'}>$ {2620.00 + (2620.00 / 2)}</Typography>
-          </Box>}
+                <Typography>
+                  <IconButton onClick={() => setOpen(!open)}>
+                    <Icon>{open ? 'visibility_outlined' : 'visibility_off_outlined'}</Icon>
+                  </IconButton>
+                </Typography>
+              </Box>
+
+              <Typography variant='subtitle1' fontWeight={600}>$ {!open ? (2620.00 + ((2620.00 - 300) / 2)).toFixed(2) : '*****'}</Typography>
+            </Box>
+          }
         </Box>
       </Box>
 

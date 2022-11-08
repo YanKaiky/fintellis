@@ -4,7 +4,7 @@ import { BaseLayout } from '../../shared/layouts';
 
 export const BillsToPay: FC = () => {
   return (
-    <BaseLayout icon='payments' title='Bills To Pay'>
+    <BaseLayout icon='credit_card' title='Bills To Pay'>
       <Box width='100%' display='flex'>
         <Grid container margin={1}>
           <Grid item container spacing={2}>
