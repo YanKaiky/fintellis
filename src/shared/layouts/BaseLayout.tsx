@@ -6,19 +6,16 @@ import { Menu } from '../components';
 interface IBaseLayoutProps {
   icon: string,
   title: string,
-  subtitle?: string,
   details?: ReactNode,
   children: ReactNode,
 }
 
-export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, details, children }) => {
+export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const [open, setOpen] = useState(true);
-
-  const { themeName } = useAppThemeContext();
 
   const { isDrawerOpen } = useDrawerContext();
 
@@ -45,15 +42,7 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, detail
           <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h5' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
             <Icon fontSize='inherit' sx={{ marginRight: '1rem' }}>{icon}</Icon>{' '}
 
-            {
-              subtitle ?
-                <Box display='flex' flexDirection='column'>
-                  {title}
-
-                  <Typography variant='body2'>{subtitle}</Typography>
-                </Box>
-                : <>{title}</>
-            }
+            {title}
           </Typography>
 
           {!mdDown && <Typography display='flex' alignItems='center' variant='h6' overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
@@ -62,7 +51,7 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, detail
 
           {
             !mdDown &&
-            <Box bgcolor='#303134' borderRadius='12px' padding='0 24px 0 12px' width={smDown ? '18%' : mdDown ? '14%' : '10%'}>
+            <Box bgcolor='background.paper' borderRadius='12px' padding='0 24px 0 12px' width={smDown ? '18%' : mdDown ? '14%' : '10%'}>
               <Box display='flex' justifyContent='space-between' alignItems='center' width='100%'>
                 <Typography variant='caption' align='left'>Balance</Typography>
 
@@ -98,7 +87,7 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, detail
           marginBottom={2}
           marginLeft={isDrawerOpen && !mdDown ? theme.spacing(38) : 10}
           borderRadius={8}
-          bgcolor={themeName === 'light' ? '#d7d7d7' : '#303134'}
+          bgcolor='background.paper'
         >
           {children}
         </Box>

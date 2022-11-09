@@ -135,7 +135,7 @@ export const Dashboard: FC = () => {
   }, [])
 
   return (
-    <BaseLayout icon='dashboard_outlined' title='Dashboard' subtitle={dashboard ? 'Payments' : 'Receives'} details={
+    <BaseLayout icon='dashboard_outlined' title='Dashboard' details={
       <Details
         right={dashboard ? 'Bills To Receive' : 'Bills To Pay'}
         icon='sync_alt_outlined'
@@ -150,7 +150,7 @@ export const Dashboard: FC = () => {
               dashboard ? payments.map((p: IProps) => {
                 return (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={1} key={p.month}>
-                    <Card>
+                    <Card sx={{ bgcolor: 'background.default', borderRadius: '10px' }}>
                       <CardContent>
                         <Typography variant='caption' align='left'>{p.month}</Typography>
 
@@ -183,12 +183,12 @@ export const Dashboard: FC = () => {
           <Grid container marginTop={3}>
             <Grid item container spacing={4} display='flex' justifyContent='flex-end'>
               <Grid item xs={12} sm={6} md={4} lg={3} xl={1}>
-                <Card sx={{ background: '#009e9e' }}>
+                <Card sx={{ bgcolor: 'primary.main', borderRadius: '10px' }}>
                   <CardContent>
-                    <Typography variant='caption' align='left'>Total:</Typography>
+                    <Typography variant='caption' align='left' color='#fff'>Total:</Typography>
 
                     <Box textAlign='left'>
-                      <Typography variant='h5'>$ {dashboard ? totalPayment.toFixed(2) : totalReceives.toFixed(2)}</Typography>
+                      <Typography variant='h5' color='#fff'>$ {dashboard ? totalPayment.toFixed(2) : totalReceives.toFixed(2)}</Typography>
                     </Box>
                   </CardContent>
                 </Card>

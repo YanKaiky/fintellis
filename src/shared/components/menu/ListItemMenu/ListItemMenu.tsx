@@ -37,9 +37,9 @@ const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
         }}
       >
         <ListItemIcon sx={{ minWidth: 0, mr: isDrawerOpen ? 3 : 0, justifyContent: 'center' }}>
-          <Icon>{icon}</Icon>
+          <Icon color='secondary'>{icon}</Icon>
         </ListItemIcon>
-        {isDrawerOpen && <ListItemText primary={label} />}
+        {isDrawerOpen && <ListItemText primary={label} sx={{ color: 'secondary.main' }} />}
       </ListItemButton>
     </ListItem>
   );

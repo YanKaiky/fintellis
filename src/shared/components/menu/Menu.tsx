@@ -13,13 +13,19 @@ export const Menu: FC = () => {
   return (
     <>
       <Drawer open={isDrawerOpen} variant='permanent' onClose={toggleDrawerOpen}>
-        <Box width={!isDrawerOpen ? theme.spacing(8) : theme.spacing(35)} height='100%' display='flex' flexDirection='column'>
+        <Box
+          width={!isDrawerOpen ? theme.spacing(8) : theme.spacing(35)}
+          height='100%'
+          display='flex'
+          flexDirection='column'
+          bgcolor='primary.main'
+        >
           <Box width="100%" height={theme.spacing(10)} display='flex' justifyContent='center' alignItems='center'>
             {isDrawerOpen &&
               <Box display='flex' alignItems='center' flex={1}>
                 <Avatar sx={{ height: theme.spacing(8), width: theme.spacing(8), margin: '0px 8px' }} src='https://www.github.com/YanKaiky.png' />
 
-                <Box display='flex' alignItems='flex-start' flexDirection='column'>
+                <Box display='flex' alignItems='flex-start' flexDirection='column' sx={{ color: 'secondary.main' }}>
                   <Typography variant='body1'>Yan Kaiky</Typography>
 
                   <Typography variant='body2'>yankaikys@gmail.com</Typography>
@@ -29,7 +35,7 @@ export const Menu: FC = () => {
 
             <Box marginRight={isDrawerOpen ? 1 : 0}>
               <IconButton onClick={toggleDrawerOpen}>
-                {!isDrawerOpen ? <Icon>menu</Icon> : <Icon>arrow_back_ios</Icon>}
+                {!isDrawerOpen ? <Icon color='secondary'>menu</Icon> : <Icon color='secondary'>arrow_back_ios</Icon>}
               </IconButton>
             </Box>
           </Box>
@@ -64,9 +70,9 @@ export const Menu: FC = () => {
                   }}
                 >
                   <ListItemIcon sx={{ minWidth: 0, mr: isDrawerOpen ? 3 : 0, justifyContent: 'center' }}>
-                    {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
+                    {themeName === 'light' ? <Icon color='secondary'>dark_mode</Icon> : <Icon color='secondary'>brightness_4</Icon>}
                   </ListItemIcon>
-                  {isDrawerOpen && <ListItemText primary='Theme' />}
+                  {isDrawerOpen && <ListItemText primary='Theme' sx={{ color: 'secondary.main' }} />}
                 </ListItemButton>
               </ListItem>
             </List>
