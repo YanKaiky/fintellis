@@ -20,34 +20,26 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, detail
 
   const { themeName } = useAppThemeContext();
 
-  const { toggleDrawerOpen, isDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen } = useDrawerContext();
 
   return (
     <Box height='100%' display='flex' flexDirection='column' gap={1}>
       <Box
         padding={1}
-        height={theme.spacing(smDown ? 6 : mdDown ? 8 : 12)}
+        height={theme.spacing(smDown ? 6 : mdDown ? 8 : 10)}
         display='flex'
         alignItems='center'
         gap={1}
       >
-        <Box marginLeft={isDrawerOpen ? theme.spacing(40) : 0}>
+        <Box marginLeft={isDrawerOpen ? theme.spacing(35) : 6}>
           <Menu />
         </Box>
-
-        {!isDrawerOpen && (
-          <Box alignSelf='normal'>
-            <IconButton onClick={toggleDrawerOpen}>
-              <Icon>menu</Icon>
-            </IconButton>
-          </Box>
-        )}
 
         <Box
           width='100%'
           display='flex'
           justifyContent='space-between'
-          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(0) : 2}
+          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(0) : 1}
           marginRight={theme.spacing(1)}
         >
           <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h5' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
@@ -104,13 +96,13 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, subtitle, detail
           marginTop={2}
           marginRight={2}
           marginBottom={2}
-          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(42) : 2}
+          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(38) : 10}
           borderRadius={8}
           bgcolor={themeName === 'light' ? '#d7d7d7' : '#303134'}
         >
           {children}
         </Box>
       </Box>
-    </Box >
+    </Box>
   );
 };

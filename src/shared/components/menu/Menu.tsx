@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
 
@@ -12,22 +12,24 @@ export const Menu: FC = () => {
 
   return (
     <>
-      <Drawer open={isDrawerOpen} variant={isDrawerOpen ? 'permanent' : 'temporary'} onClose={toggleDrawerOpen}>
-        <Box width={theme.spacing(40)} height='100%' display='flex' flexDirection='column'>
-          <Box width="100%" height={theme.spacing(20)} display='flex' justifyContent='center'>
-            <Box display='flex' alignItems='center' justifyContent='center' flex={1}>
-              <Avatar sx={{ height: theme.spacing(12), width: theme.spacing(12) }} src='https://www.github.com/YanKaiky.png' />
+      <Drawer open={isDrawerOpen} variant='permanent' onClose={toggleDrawerOpen}>
+        <Box width={!isDrawerOpen ? theme.spacing(8) : theme.spacing(35)} height='100%' display='flex' flexDirection='column'>
+          <Box width="100%" height={theme.spacing(10)} display='flex' justifyContent='center' alignItems='center'>
+            {isDrawerOpen &&
+              <Box display='flex' alignItems='center' flex={1}>
+                <Avatar sx={{ height: theme.spacing(8), width: theme.spacing(8), margin: '0px 8px' }} src='https://www.github.com/YanKaiky.png' />
 
-              <Box display='flex' alignItems='flex-start' flexDirection='column' margin={1}>
-                <Typography variant='h5'>Yan Kaiky</Typography>
+                <Box display='flex' alignItems='flex-start' flexDirection='column'>
+                  <Typography variant='body1'>Yan Kaiky</Typography>
 
-                <Typography variant='body2'>yankaikys@gmail.com</Typography>
+                  <Typography variant='body2'>yankaikys@gmail.com</Typography>
+                </Box>
               </Box>
-            </Box>
+            }
 
-            <Box>
+            <Box marginRight={isDrawerOpen ? 1 : 0}>
               <IconButton onClick={toggleDrawerOpen}>
-                <Icon>menu</Icon>
+                {!isDrawerOpen ? <Icon>menu</Icon> : <Icon>arrow_back_ios</Icon>}
               </IconButton>
             </Box>
           </Box>
@@ -50,18 +52,23 @@ export const Menu: FC = () => {
 
           <Box>
             <List component="nav">
-              <ListItemButton onClick={toggleTheme} sx={{ margin: 1, borderRadius: '10px' }}>
-                <ListItemIcon>
-                  {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
-                </ListItemIcon>
-                <ListItemText primary='Theme' />
-              </ListItemButton>
-
-              <ListItemText>
-                <Typography variant='body2' color='gray' textAlign='center'>
-                  {`© ${new Date().getUTCFullYear()}, Fintellis`}
-                </Typography>
-              </ListItemText>
+              <ListItem disablePadding sx={{ display: 'block' }} title='Theme'>
+                <ListItemButton
+                  onClick={toggleTheme}
+                  sx={{
+                    margin: 1,
+                    borderRadius: '10px',
+                    minHeight: 48,
+                    justifyContent: isDrawerOpen ? 'initial' : 'center',
+                    px: 2.5
+                  }}
+                >
+                  <ListItemIcon sx={{ minWidth: 0, mr: isDrawerOpen ? 3 : 0, justifyContent: 'center' }}>
+                    {themeName === 'light' ? <Icon>dark_mode</Icon> : <Icon>brightness_4</Icon>}
+                  </ListItemIcon>
+                  {isDrawerOpen && <ListItemText primary='Theme' />}
+                </ListItemButton>
+              </ListItem>
             </List>
           </Box>
         </Box>

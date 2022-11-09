@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Icon, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Icon, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { useDrawerContext } from '../../../contexts';
 
 interface IListItemMenuProps {
   to: string,
@@ -12,6 +13,8 @@ interface IListItemMenuProps {
 const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
 
+  const { isDrawerOpen } = useDrawerContext();
+
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: true });
 
@@ -21,12 +24,24 @@ const ListItemMenu: FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
   };
 
   return (
-    <ListItemButton selected={!!match} onClick={handleClick} sx={{ margin: 1, borderRadius: '10px' }}>
-      <ListItemIcon>
-        <Icon>{icon}</Icon>
-      </ListItemIcon>
-      <ListItemText primary={label} />
-    </ListItemButton>
+    <ListItem key={to} disablePadding sx={{ display: 'block' }} title={label}>
+      <ListItemButton
+        selected={!!match}
+        onClick={handleClick}
+        sx={{
+          margin: 1,
+          borderRadius: '10px',
+          minHeight: 48,
+          justifyContent: isDrawerOpen ? 'initial' : 'center',
+          px: 2.5
+        }}
+      >
+        <ListItemIcon sx={{ minWidth: 0, mr: isDrawerOpen ? 3 : 0, justifyContent: 'center' }}>
+          <Icon>{icon}</Icon>
+        </ListItemIcon>
+        {isDrawerOpen && <ListItemText primary={label} />}
+      </ListItemButton>
+    </ListItem>
   );
 };
 
