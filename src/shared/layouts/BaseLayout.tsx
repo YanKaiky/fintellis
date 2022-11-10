@@ -1,6 +1,6 @@
 import { ReactNode, FC, useState } from 'react';
 import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useAppThemeContext, useDrawerContext } from '../contexts';
+import { useDrawerContext } from '../contexts';
 import { Menu } from '../components';
 
 interface IBaseLayoutProps {
@@ -17,7 +17,7 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
 
   const [open, setOpen] = useState(true);
 
-  const { isDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
 
   return (
     <Box height='100%' display='flex' flexDirection='column' gap={1}>
@@ -28,9 +28,15 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
         alignItems='center'
         gap={1}
       >
-        <Box marginLeft={isDrawerOpen ? theme.spacing(35) : 6}>
+        <Box marginLeft={isDrawerOpen ? theme.spacing(35) : smDown ? theme.spacing(0) : 6}>
           <Menu />
         </Box>
+
+        {!isDrawerOpen && smDown && <Box marginRight={isDrawerOpen ? 1 : 0}>
+          <IconButton onClick={toggleDrawerOpen}>
+            {!isDrawerOpen ? <Icon color='secondary'>menu</Icon> : <Icon color='secondary'>arrow_back_ios</Icon>}
+          </IconButton>
+        </Box>}
 
         <Box
           width='100%'
@@ -39,7 +45,15 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
           marginLeft={isDrawerOpen && !mdDown ? theme.spacing(0) : 1}
           marginRight={theme.spacing(1)}
         >
-          <Typography display='flex' alignItems='center' variant={smDown ? 'h5' : mdDown ? 'h5' : 'h3'} overflow='hidden' whiteSpace='nowrap' textOverflow='ellipsis'>
+          <Typography
+            display='flex'
+            alignItems='center'
+            variant={mdDown ? 'h6' : 'h4'}
+            overflow='hidden'
+            whiteSpace='nowrap'
+            textOverflow='ellipsis'
+            sx={{ color: 'secondary.contrastText' }}
+          >
             <Icon fontSize='inherit' sx={{ marginRight: '1rem' }}>{icon}</Icon>{' '}
 
             {title}
@@ -51,24 +65,24 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
 
           {
             !mdDown &&
-            <Box bgcolor='background.paper' borderRadius='12px' padding='0 24px 0 12px' width={smDown ? '18%' : mdDown ? '14%' : '10%'}>
+            <Box bgcolor='background.paper' borderRadius='12px' padding='0 24px 0 12px' width={mdDown ? '14%' : '18%'}>
               <Box display='flex' justifyContent='space-between' alignItems='center' width='100%'>
-                <Typography variant='caption' align='left'>Balance</Typography>
+                <Typography variant='caption' align='left' sx={{ color: 'secondary.contrastText' }}>Current Balance</Typography>
 
-                <Typography>
+                <Typography sx={{ color: 'secondary.contrastText' }}>
                   <IconButton onClick={() => setOpen(!open)}>
                     <Icon>{open ? 'visibility_outlined' : 'visibility_off_outlined'}</Icon>
                   </IconButton>
                 </Typography>
               </Box>
 
-              <Typography variant='subtitle1' fontWeight={600}>$ {!open ? (2620.00 + ((2620.00 - 300) / 2)).toFixed(2) : '*****'}</Typography>
+              <Typography fontSize={22} sx={{ color: 'secondary.contrastText' }}>$ {!open ? (2620.00 + ((2620.00 - 300) / 2)).toFixed(2) : '*****'}</Typography>
             </Box>
           }
         </Box>
       </Box>
 
-      <Box display='flex' flexDirection='column' columnGap={0}>
+      <Box display='flex' flexDirection='column' justifyContent='center' columnGap={0}>
         {details && (
           <Box
             overflow={isDrawerOpen && !smDown ? 'auto' : undefined}
@@ -85,13 +99,13 @@ export const BaseLayout: FC<IBaseLayoutProps> = ({ icon, title, details, childre
           marginTop={2}
           marginRight={2}
           marginBottom={2}
-          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(38) : 10}
+          marginLeft={isDrawerOpen && !mdDown ? theme.spacing(38) : smDown ? theme.spacing(2) : 10}
           borderRadius={8}
           bgcolor='background.paper'
         >
           {children}
         </Box>
       </Box>
-    </Box>
+    </Box >
   );
 };

@@ -20,16 +20,16 @@ export const Details: FC<IDetailsProps> = ({
     <Box width='100%' display='flex' alignItems='center' justifyContent='space-between'>
       <Box>{left ?? <></>}</Box>
 
-      <Typography>{center}</Typography>
+      <Typography sx={{ color: 'secondary.contrastText' }}>{center}</Typography>
 
       {icon ?
         <Box>
           <Typography
             onClick={() => onRightClick?.()}
-            variant='button'
             display='flex'
             alignItems='center'
             sx={{
+              color: 'secondary.contrastText',
               cursor: 'pointer',
               ':hover': {
                 textDecoration: 'underline'
@@ -44,6 +44,7 @@ export const Details: FC<IDetailsProps> = ({
           onClick={() => onRightClick?.()}
           variant='caption'
           sx={{
+            color: 'secondary.contrastText',
             cursor: 'pointer',
             ':hover': {
               textDecoration: 'underline'

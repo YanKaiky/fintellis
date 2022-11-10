@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Icon, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useDrawerContext } from '../../../contexts';

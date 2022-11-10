@@ -2,23 +2,26 @@ import { FC } from 'react';
 import { Avatar, Box, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useAppThemeContext, useDrawerContext } from '../../contexts';
 import ListItemMenu from './ListItemMenu/ListItemMenu';
+import { useLocation } from 'react-router-dom';
 
 export const Menu: FC = () => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const location = useLocation()
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
   const { themeName, toggleTheme } = useAppThemeContext();
 
   return (
     <>
-      <Drawer open={isDrawerOpen} variant='permanent' onClose={toggleDrawerOpen}>
+      <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
         <Box
           width={!isDrawerOpen ? theme.spacing(8) : theme.spacing(35)}
           height='100%'
           display='flex'
           flexDirection='column'
-          bgcolor='primary.main'
+          bgcolor={location.pathname === '/bills-to-receive' ? '#00C2FF' : 'primary.main'}
         >
           <Box width="100%" height={theme.spacing(10)} display='flex' justifyContent='center' alignItems='center'>
             {isDrawerOpen &&

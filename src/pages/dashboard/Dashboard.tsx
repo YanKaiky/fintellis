@@ -137,7 +137,7 @@ export const Dashboard: FC = () => {
   return (
     <BaseLayout icon='dashboard_outlined' title='Dashboard' details={
       <Details
-        right={dashboard ? 'Bills To Receive' : 'Bills To Pay'}
+        right={dashboard ? 'Receiveds' : 'Paymentes'}
         icon='sync_alt_outlined'
         onRightClick={() => setDashboard(!dashboard)}
         center={year}
@@ -165,7 +165,7 @@ export const Dashboard: FC = () => {
                 receives.map((r: IProps) => {
                   return (
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={1} key={r.month}>
-                      <Card>
+                      <Card sx={{ bgcolor: 'background.default', borderRadius: '10px' }}>
                         <CardContent>
                           <Typography variant='caption' align='left'>{r.month}</Typography>
 
@@ -183,7 +183,7 @@ export const Dashboard: FC = () => {
           <Grid container marginTop={3}>
             <Grid item container spacing={4} display='flex' justifyContent='flex-end'>
               <Grid item xs={12} sm={6} md={4} lg={3} xl={1}>
-                <Card sx={{ bgcolor: 'primary.main', borderRadius: '10px' }}>
+                <Card sx={{ bgcolor: dashboard ? 'primary.main' : '#00C2FF', borderRadius: '10px' }}>
                   <CardContent>
                     <Typography variant='caption' align='left' color='#fff'>Total:</Typography>
 
