@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { FC } from 'react';
 import { Details } from '../../shared/components';
 import { BaseLayout } from '../../shared/layouts';
+import { DashboardService } from '../../shared/services/dashboard/dashboard.service';
 
 interface IProps {
   month: string,
@@ -21,117 +22,15 @@ export const Dashboard: FC = () => {
   const [totalReceives, setTotalReceives] = useState<number>(0)
 
   useEffect(() => {
-    const response = {
-      year: 2022,
-      payments: [
-        {
-          month: "January",
-          value: 2500.00
-        },
-        {
-          month: "February",
-          value: 2500.00
-        },
-        {
-          month: "March",
-          value: 2500.00
-        },
-        {
-          month: "April",
-          value: 2500.00
-        },
-        {
-          month: "May",
-          value: 2500.00
-        },
-        {
-          month: "June",
-          value: 2500.00
-        },
-        {
-          month: "July",
-          value: 2500.00
-        },
-        {
-          month: "August",
-          value: 2500.00
-        },
-        {
-          month: "September",
-          value: 2500.00
-        },
-        {
-          month: "October",
-          value: 2500.00
-        },
-        {
-          month: "November",
-          value: 0.00
-        },
-        {
-          month: "December",
-          value: 0.00
-        },
-      ],
-      receives: [
-        {
-          month: "January",
-          value: 500.00
-        },
-        {
-          month: "February",
-          value: 500.00
-        },
-        {
-          month: "March",
-          value: 500.00
-        },
-        {
-          month: "April",
-          value: 500.00
-        },
-        {
-          month: "May",
-          value: 500.00
-        },
-        {
-          month: "June",
-          value: 500.00
-        },
-        {
-          month: "July",
-          value: 500.00
-        },
-        {
-          month: "August",
-          value: 500.00
-        },
-        {
-          month: "September",
-          value: 500.00
-        },
-        {
-          month: "October",
-          value: 500.00
-        },
-        {
-          month: "November",
-          value: 0.00
-        },
-        {
-          month: "December",
-          value: 0.00
-        },
-      ],
-      total_payments: 25000,
-      total_received: 5000
-    }
+    (async () => {
+      const response = await DashboardService.getValues();
 
-    setYear(response.year);
-    setPayments(response.payments);
-    setReceives(response.receives);
-    setTotalPayment(response.total_payments);
-    setTotalReceives(response.total_received);
+      setYear(response.year);
+      setPayments(response.payments);
+      setReceives(response.receives);
+      setTotalPayment(response.total_payments);
+      setTotalReceives(response.total_received);
+    })()
   }, [])
 
   return (
