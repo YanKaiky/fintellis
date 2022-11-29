@@ -45,9 +45,9 @@ export const Details: FC<IDetailsProps> = ({
           variant='caption'
           sx={{
             color: 'secondary.contrastText',
-            cursor: 'pointer',
+            cursor: icon && 'pointer',
             ':hover': {
-              textDecoration: 'underline'
+              textDecoration: icon && 'underline'
             }
           }}
         >
